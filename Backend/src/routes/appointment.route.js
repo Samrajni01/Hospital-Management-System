@@ -5,7 +5,7 @@ import {
   getAppointmentsByDoctorId,
   getMyAppointments,
   updateAppointment,
-  cancelAppointment
+ deleteAppointment
 } from "../controllers/appointment.controller.js";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -29,6 +29,6 @@ router.get("/me", verifyJWT, getMyAppointments);
 router.patch("/:id", verifyJWT, updateAppointment);
 
 
-router.patch("/cancel/:id", verifyJWT, cancelAppointment);
+router.delete("/:id", verifyJWT, deleteAppointment);
 
 export default router;

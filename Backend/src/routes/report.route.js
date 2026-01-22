@@ -16,7 +16,7 @@ const router = Router();
 router.post(
   "/",
   verifyJWT,isAdmin,
-  upload.single("report"),
+  upload.single("fileUrl"),
   addReport
 );
 
@@ -30,3 +30,4 @@ router.patch("/:id", verifyJWT, updateReport);
 router.delete("/:id", verifyJWT, isAdmin, deleteReport);
 
 export default router;
+

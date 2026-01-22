@@ -3,6 +3,8 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { Report } from "../models/report.model.js";
+import { Patient } from "../models/patient.model.js";
+
 
 
 
@@ -32,6 +34,7 @@ export const addReport = asyncHandler(async (req, res) => {
     reportType,
     findings,
     fileUrl: uploadedFile.url,
+    status:"pending",
   });
 
   res.status(201).json(
@@ -50,11 +53,20 @@ export const getReportById = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Report not found");
   }
 
+  // Admin can see all
+  if (req.user.role !== "admin") {
+    // Patient can see only own
+    const patient = await Patient.findOne({ user: req.user._id });
+
+    if (!patient || report.patient._id.toString() !== patient._id.toString()) {
+      throw new ApiError(403, "Not allowed");
+    }
+  }
+
   res.status(200).json(
     new ApiResponse(200, report, "Report fetched successfully")
   );
 });
-
 
 export const updateReport = asyncHandler(async (req, res) => {
   const report = await Report.findByIdAndUpdate(

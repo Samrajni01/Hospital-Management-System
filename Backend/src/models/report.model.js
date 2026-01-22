@@ -34,14 +34,11 @@ const reportSchema = new Schema(
       trim: true 
       
     },
-    issuedDate: {
-      type: Date,
-      default: Date.now
-    },
+    
     status: {
       type: String,
       enum: ["pending", "completed", "delivered"],
-      default: "completed"
+      default: "pending"
     }
   },
   { timestamps: true }

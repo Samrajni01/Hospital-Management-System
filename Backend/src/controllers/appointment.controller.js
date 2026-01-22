@@ -110,19 +110,32 @@ export const updateAppointment = asyncHandler(async (req, res) => {
 
   res.status(200).json(new ApiResponse(200, appointment, "Appointment updated"));
 });
-export const cancelAppointment = asyncHandler(async (req, res) => {
+export const deleteAppointment = asyncHandler(async (req, res) => {
   const appointment = await Appointment.findById(req.params.id);
 
   if (!appointment) {
     throw new ApiError(404, "Appointment not found");
   }
 
-  appointment.status = "cancelled";
-  await appointment.save();
+  // Admin can delete any
+  if (req.user.role !== "admin") {
+    const patient = await Patient.findOne({ user: req.user._id });
 
-  res.status(200).json(new ApiResponse(200, appointment, "Appointment cancelled"));
+    if (!patient) {
+      throw new ApiError(404, "Patient profile not found");
+    }
+
+    if (appointment.patient.toString() !== patient._id.toString()) {
+      throw new ApiError(403, "Not allowed");
+    }
+  }
+
+  await appointment.deleteOne();
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, null, "Appointment deleted successfully"));
 });
-
 
 
 

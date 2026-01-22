@@ -1,0 +1,94 @@
+/* ===== FULL SCREEN WRAPPER ===== */
+#root{
+    width:100%;
+    max-width: none;
+}
+
+
+
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+}
+
+/* ===== FORM CONTAINER ===== */
+.auth-container {
+  width: 100%;
+  max-width: 900px;
+  padding: 32px;
+  background-color: whitesmoke;
+}
+
+.form-title {
+  background-color: #f4a052; /* same orange as your buttons */
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 8px 8px 0 0; /* rounded top corners */
+  margin-bottom: 20px;
+}
+
+/* ===== FORM ===== */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* ===== LABEL ===== */
+.auth-form label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* ===== INPUTS ===== */
+.auth-form input,
+.auth-form select {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px; /* small rounded corner */
+  outline: none;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  border-color: #ff7a00;
+}
+
+/* ===== BUTTON ===== */
+.auth-button {
+  margin-top: 10px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  background: #ff7a00;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.auth-button:hover {
+  opacity: 0.9;
+}
+
+/* ===== LINK TEXT ===== */
+.auth-link {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.auth-link a {
+  color: #ff7a00;
+  text-decoration: none;
+}

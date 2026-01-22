@@ -1,0 +1,178 @@
+.doctor-dashboard-page {
+  min-height: 100vh;
+  background: #fff4ea; /* same soft orange shade */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 50px;
+}
+
+.doctor-dashboard-card {
+  width: 100%;
+  max-width: 900px;
+  min-height: 480px; 
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 12px 30px rgba(255, 140, 26, 0.2);
+}
+
+.doctor-dashboard-title {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  color: #ff8c1a;
+  margin-bottom: 20px;
+}
+
+.dashboard-divider {
+  border: none;
+  height: 1px;
+  background: #ffd2a8;
+  margin: 25px 0;
+}
+
+/* Buttons section */
+.dashboard-actions {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 15px;
+  font-size: 17px;
+}
+
+.dashboard-btn {
+  background: #ff8c1a;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  
+   
+  transition: all 0.2s ease;
+}
+
+.dashboard-btn:hover {
+  background: #e67600;
+  transform: translateY(-1px);
+}
+
+.full-width {
+  width: 100%;
+  
+  margin-top: 20px; /* ⬅️ pushes View Patient Reports down */
+
+
+}
+
+/* Reports section */
+.dashboard-reports {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dashboard-input {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid #ffcc9a;
+  outline: none;
+}
+
+.dashboard-input:focus {
+  border-color: #ff8c1a;
+}
+.dashboard-btn-outline {
+  background: white;
+  color: #000;
+  border: 2px solid #ff8c1a;
+  padding: 14px;          /* same size */
+  font-size: 16px;        /* same font */
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dashboard-btn-outline:hover {
+  background: #fff1e3;    /* light orange */
+}
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;      /* ⬅️ centers content horizontally */
+}
+.profile-card p {
+  width: 100%;
+  max-width: 320px;     /* keeps it straight */
+  text-align: left;     /* ⬅️ makes text straight */
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+.profile-actions {
+  display: flex;
+  justify-content: center; /* ⬅️ center buttons */
+  gap: 15px;
+  margin-top: 25px;
+}
+.doctor-list {
+  list-style: none;
+  padding: 0;
+}
+
+.doctor-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #ff8c1a;
+}
+
+.doctor-item:last-child {
+  border-bottom: none;
+}
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 16px;
+  border: 2px solid orange;
+}
+
+/* table header */
+.appointments-table th {
+  background-color: orange;
+  color: white;
+  padding: 14px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* table cells */
+.appointments-table td {
+  padding: 12px 16px;
+  text-align: center;
+  border: 1px solid orange;
+}
+
+/* row hover effect */
+.appointments-table tr:hover {
+  background-color: #fff3e6;
+}
+
+/* cancel button */
+.appointments-table button {
+  padding: 6px 12px;
+  background-color: orange;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.appointments-table button:hover {
+  background-color: darkorange;
+}
+
+

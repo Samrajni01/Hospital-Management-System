@@ -57,8 +57,8 @@ import EditPatient from "../Modules/patients/editPatient.jsx";
 import AddReport from "../Modules/reports/addreport.jsx";
 import ReportDetails from "../Modules/reports/reportdetails.jsx";
 import UpdateReport from "../Modules/reports/updateReport.jsx";
-import CancelAppointment from "../Modules/appointments/cancel.jsx";
-import GetReportById from "../Modules/reports/getreportbyid.jsx";
+import CancelAppointmentPage  from "../Modules/appointments/cancel.jsx";
+import MyReports from "../Modules/reports/MyReports.jsx";
 
 
 
@@ -92,9 +92,10 @@ function App() {
 <Route path="/reports/add" element={<AddReport />} />
 <Route path="/reports/:id" element={<ReportDetails />} />
 <Route path="/reports/:id/edit" element={<UpdateReport />} />
-<Route path="/cancel/:id/" element={<CancelAppointment />} />
-<Route path="/reports/:id" element={<GetReportById />} />
+<Route path="/cancel/:id/" element={<CancelAppointmentPage  />} />
+
 <Route path="/doctor/home" element={<DoctorHomeWrapper />}/>
+<Route path="/my-reports"  element={<MyReports />}/>
 
 
 

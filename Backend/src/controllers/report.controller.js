@@ -98,3 +98,27 @@ export const deleteReport = asyncHandler(async (req, res) => {
     new ApiResponse(200, null, "Report deleted successfully")
   );
 });
+export const getMyReports = asyncHandler(async (req, res) => {
+  // 1. Find the patient profile associated with the logged-in user
+  const patient = await Patient.findOne({ user: req.user._id });
+
+  if (!patient) {
+    throw new ApiError(404, "Patient profile not found for this user");
+  }
+
+  // 2. Fetch all reports for this patient
+  // Inside report.controller.js
+const reports = await Report.find({ patient: patient._id })
+  .populate({
+    path: "doctor",
+    populate: {
+      path: "user",
+      select: "fullName phoneNumber email" // These come from User model
+    }
+  })
+  .sort({ createdAt: -1 });
+
+  res.status(200).json(
+    new ApiResponse(200, reports, "Reports retrieved successfully")
+  );
+});

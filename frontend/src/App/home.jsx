@@ -37,7 +37,7 @@ export default function Home({ userId }) {
 
       {/* Button to see my reports */}
       <div className="dashboard-reports">
-      <button className="dashboard-btn full-width"  onClick={() => navigate(`/reports/${userId}`)}>
+      <button className="dashboard-btn full-width"  onClick={() => navigate("/my-reports")}>
         My Reports
       </button>
       

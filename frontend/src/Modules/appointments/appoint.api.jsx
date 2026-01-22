@@ -9,5 +9,5 @@ export const getMyAppointmentsApi = () => {
 };
 
 export const cancelAppointmentApi = (id) => {
-  return api.patch(`/api/v1/appointments/cancel/${id}`);
+  return api.delete(`/api/v1/appointments/${id}`);
 };

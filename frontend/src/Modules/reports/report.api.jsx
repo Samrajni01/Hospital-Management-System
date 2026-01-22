@@ -13,3 +13,6 @@ export const updateReportApi = (id, data) =>
 
 export const deleteReportApi = (id) =>
   api.delete(`/api/v1/reports/${id}`);
+
+export const getMyReportsApi = () => 
+  api.get("/api/v1/reports/my-reports");

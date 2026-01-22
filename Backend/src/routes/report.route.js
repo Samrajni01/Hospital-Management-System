@@ -3,7 +3,8 @@ import {
   addReport,
   getReportById,
   updateReport,
-  deleteReport
+  deleteReport,
+  getMyReports
 } from "../controllers/report.controller.js";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -19,9 +20,10 @@ router.post(
   upload.single("fileUrl"),
   addReport
 );
+router.get("/my-reports", verifyJWT, getMyReports);
 
 
-router.get("/:id", verifyJWT, getReportById);
+router.get("/:id", verifyJWT, isAdmin, getReportById);
 
 
 router.patch("/:id", verifyJWT, updateReport);

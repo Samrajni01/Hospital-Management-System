@@ -1,40 +1,40 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { getReportByIdApi } from "./report.api";
 
-const GetReportById = () => {
-  const { id } = useParams(); // report ID
-  const [report, setReport] = useState(null);
+const MyReportsbyid = () => {
+  const [reports, setReports] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchReport = async () => {
+    const fetchReports = async () => {
       try {
-        const res = await getReportByIdApi(id);
-        setReport(res.data.data); // adjust based on your API response
+        const res =  getReportByIdApi; // fetch reports for logged-in patient
+        setReports(res.data.data);
       } catch (err) {
-        console.error(err.response?.data?.message);
+        console.error(err.response?.data?.message || err.message);
       } finally {
         setLoading(false);
       }
     };
+    fetchReports();
+  }, []);
 
-    fetchReport();
-  }, [id]);
-
-  if (loading) return <p>Loading report...</p>;
-  if (!report) return <p>Report not found</p>;
+  if (loading) return <p>Loading reports...</p>;
+  if (reports.length === 0) return <p>No reports found</p>;
 
   return (
     <div>
-      <h2>Report Details</h2>
-      <p><b>Report ID:</b> {report._id}</p>
-      <p><b>Patient:</b> {report.patient?.fullName || "N/A"}</p>
-      <p><b>Doctor:</b> {report.doctor?.fullName || "N/A"}</p>
-      <p><b>Description:</b> {report.description}</p>
-      <p><b>Date:</b> {new Date(report.createdAt).toDateString()}</p>
+      <h2>My Reports</h2>
+      {reports.map((report) => (
+        <div key={report._id} style={{ border: "1px solid #ccc", padding: "10px", margin: "10px 0" }}>
+          <p><b>Report ID:</b> {report._id}</p>
+          <p><b>Doctor:</b> {report.doctor?.fullName || "N/A"}</p>
+          <p><b>Description:</b> {report.findings || report.description}</p>
+          <p><b>Date:</b> {new Date(report.createdAt).toDateString()}</p>
+        </div>
+      ))}
     </div>
   );
 };
 
-export default GetReportById;
+export default MyReportsbyid;

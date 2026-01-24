@@ -4,6 +4,7 @@ import { app } from "./app.js"
 dotenv.config({
     path: '../.env'
 })
+//mongodb+srv://samrajni09:Nm37QU5%23q2HwN9_@cluster0.mkccqlm.mongodb.net
 
 
 

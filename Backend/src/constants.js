@@ -1,1 +1,1 @@
-export const DB_NAME="hospital-management"
+export const DB_NAME="hospital-App"

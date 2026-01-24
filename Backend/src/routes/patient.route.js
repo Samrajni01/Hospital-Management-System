@@ -5,6 +5,7 @@ import {
   getPatientById,
   updatePatient,
   deletePatient,
+  paymentOptions, createRazorpayOrder
 } from "../controllers/patient.controller.js";
 
 import { verifyJWT } from "../middlewares/auth.middleware.js";
@@ -27,5 +28,7 @@ router.patch("/:id", verifyJWT,  updatePatient);
 
 
 router.delete("/:id", verifyJWT, isAdmin, deletePatient);
+router.get("/options", verifyJWT, paymentOptions);      
+router.post("/razorpay", verifyJWT, createRazorpayOrder);
 
 export default router;

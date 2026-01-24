@@ -2,29 +2,33 @@ import { Bill } from "../models/Bill.model.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
+import { Patient } from "../models/patient.model.js";
+
 
 /**
- * Create Bill
+ * CREATE BILL (ADMIN ONLY)
  */
 const createBill = asyncHandler(async (req, res) => {
-  const {
-    patient,
-    appointment,
-    doctor,
-    services,
-    totalAmount,
-    paymentMethod,
-  } = req.body;
+  if (req.user.role !== "admin") {
+    throw new ApiError(403, "Only admin can create bill");
+  }
+
+  const { patient, appointment, doctor, services } = req.body;
 
   if (
-    [patient, appointment, doctor, totalAmount].some(
-      (field) => !field
-    ) ||
+    !patient ||
+    !appointment ||
+    !doctor ||
     !Array.isArray(services) ||
     services.length === 0
   ) {
     throw new ApiError(400, "All required fields must be provided");
   }
+
+  const totalAmount = services.reduce(
+    (sum, s) => sum + s.amount,
+    0
+  );
 
   const bill = await Bill.create({
     patient,
@@ -32,16 +36,15 @@ const createBill = asyncHandler(async (req, res) => {
     doctor,
     services,
     totalAmount,
-    paymentMethod,
   });
 
-  res.status(201).json(
-    new ApiResponse(201, bill, "Bill created successfully")
-  );
+  res
+    .status(201)
+    .json(new ApiResponse(201, bill, "Bill created"));
 });
 
 /**
- * Get Bill by ID
+ * GET BILL BY ID (ADMIN or OWNER PATIENT)
  */
 const getBillById = asyncHandler(async (req, res) => {
   const { billId } = req.params;
@@ -55,51 +58,60 @@ const getBillById = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Bill not found");
   }
 
-  res.status(200).json(
-    new ApiResponse(200, bill, "Bill fetched successfully")
-  );
+  if (
+    req.user.role !== "admin" &&
+    bill.patient._id.toString() !== req.user._id.toString()
+  ) {
+    throw new ApiError(403, "Access denied");
+  }
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, bill, "Bill fetched"));
 });
 
 /**
- * Get Bills by Patient
+ * GET LOGGED-IN PATIENT BILLS
  */
-const getBillsByPatient = asyncHandler(async (req, res) => {
-  const { patientId } = req.params;
+const getMyBills = asyncHandler(async (req, res) => {
+  if (req.user.role !== "patient") {
+    throw new ApiError(403, "Only patients can access this");
+  }
 
-  const bills = await Bill.find({ patient: patientId })
-    .populate("doctor")
-    .populate("appointment");
+  // find patient profile linked to logged-in user
+  const patient = await Patient.findOne({ user: req.user._id });
 
-  res.status(200).json(
-    new ApiResponse(200, bills, "Patient bills fetched successfully")
-  );
-});
+  if (!patient) {
+    throw new ApiError(404, "Patient profile not found");
+  }
 
-/**
- * Update Payment Status
- */
-const markBillAsPaid = asyncHandler(async (req, res) => {
-  const { billId } = req.params;
+  const bills = await Bill.find({ patient: patient._id })
+   .populate({
+    path: "doctor",
+    populate: {
+      path: "user",
+      select: "fullName"
+    }
+  })
+  .populate("appointment");
 
-  const bill = await Bill.findByIdAndUpdate(
-    billId,
-    { paid: true },
-    { new: true }
-  );
-
-  if (!bill) {
-    throw new ApiError(404, "Bill not found");
+  // if no bills yet
+  if (!bills || bills.length === 0) {
+    throw new ApiError(404, "No bills found. Nothing to pay 🎉");
   }
 
   res.status(200).json(
-    new ApiResponse(200, bill, "Bill marked as paid")
+    new ApiResponse(200, bills, "My bills fetched")
   );
 });
-
 /**
- * Delete Bill
+ * DELETE BILL (ADMIN ONLY)
  */
 const deleteBill = asyncHandler(async (req, res) => {
+  if (req.user.role !== "admin") {
+    throw new ApiError(403, "Only admin can delete bill");
+  }
+
   const { billId } = req.params;
 
   const bill = await Bill.findByIdAndDelete(billId);
@@ -108,15 +120,14 @@ const deleteBill = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Bill not found");
   }
 
-  res.status(200).json(
-    new ApiResponse(200, null, "Bill deleted successfully")
-  );
+  res
+    .status(200)
+    .json(new ApiResponse(200, null, "Bill deleted"));
 });
 
 export {
   createBill,
   getBillById,
-  getBillsByPatient,
-  markBillAsPaid,
+  getMyBills,
   deleteBill,
 };

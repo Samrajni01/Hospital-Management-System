@@ -2,30 +2,24 @@ import { Router } from "express";
 import {
   createBill,
   getBillById,
-  getBillsByPatient,
-  markBillAsPaid,
-  deleteBill,
+  getMyBills,
+  deleteBill
 } from "../controllers/bill.controller.js";
+
 import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { isAdmin } from "../middlewares/isAdmin.middleware.js";
 
 const router = Router();
 
 
-router.use(verifyJWT);
+router.post("/", verifyJWT, isAdmin, createBill);
 
 
-router.route("/").post(createBill);
+router.get("/my", verifyJWT, getMyBills);
+
+router.get("/:billId", verifyJWT, getBillById);
 
 
-router.route("/:billId").get(getBillById);
-
-
-router.route("/patient/:patientId").get(getBillsByPatient);
-
-
-router.route("/:billId/pay").patch(markBillAsPaid);
-
-
-router.route("/:billId").delete(deleteBill);
+router.delete("/:billId", verifyJWT, isAdmin, deleteBill);
 
 export default router;

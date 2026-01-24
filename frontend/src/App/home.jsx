@@ -43,7 +43,7 @@ export default function Home({ userId }) {
       
 
       {/* Button for bill (page not created yet) */}
-      <button className="dashboard-btn full-width" onClick={() => alert("Bill page not implemented yet")}>
+      <button className="dashboard-btn full-width" onClick={() => navigate("/mybill")}>
         My Bill
       </button>
     </div>

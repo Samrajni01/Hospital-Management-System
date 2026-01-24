@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-   "dev": "nodemon -r dotenv/config src/index.js dotenv_config_path=.env"
+    "dev": "nodemon -r dotenv/config src/index.js dotenv_config_path=.env"
   },
   "author": "Samrajni Bhowmik",
   "license": "ISC",
@@ -21,7 +21,8 @@
     "mongodb": "^7.0.0",
     "mongoose-aggregate-paginate-v2": "^1.1.4",
     "multer": "^2.0.2",
-    "prettier": "^3.7.4"
+    "prettier": "^3.7.4",
+    "razorpay": "^2.9.6"
   },
   "devDependencies": {
     "express": "^5.2.1",

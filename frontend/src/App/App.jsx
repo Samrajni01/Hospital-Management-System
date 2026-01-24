@@ -60,6 +60,8 @@ import UpdateReport from "../Modules/reports/updateReport.jsx";
 import CancelAppointmentPage  from "../Modules/appointments/cancel.jsx";
 import MyReports from "../Modules/reports/MyReports.jsx";
 
+import HaveBill from "../Modules/bills/billList.jsx";
+
 
 
 
@@ -96,6 +98,7 @@ function App() {
 
 <Route path="/doctor/home" element={<DoctorHomeWrapper />}/>
 <Route path="/my-reports"  element={<MyReports />}/>
+<Route path="/mybill" element={<HaveBill/>}/>
 
 
 

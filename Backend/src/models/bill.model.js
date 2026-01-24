@@ -4,8 +4,8 @@ const billSchema = new Schema(
   {
     patient: {
       type: Schema.Types.ObjectId,
-      ref: "Patient",
-      required: true,
+  ref: "Patient",
+  required: true
     },
     appointment: {
       type: Schema.Types.ObjectId,
@@ -17,24 +17,29 @@ const billSchema = new Schema(
       ref: "Doctor",
       required: true,
     },
+
+    // charges
     services: [
       {
         name: { type: String, required: true },
         amount: { type: Number, required: true },
       },
     ],
+
     totalAmount: {
       type: Number,
       required: true,
     },
-    paid: {
-      type: Boolean,
-      default: false,
+
+    paidAmount: {
+      type: Number,
+      default: 0,
     },
-    paymentMethod: {
+
+    status: {
       type: String,
-      enum: ["cash", "upi", "card"],
-      default: "cash",
+      enum: ["pending", "partially_paid", "paid"],
+      default: "pending",
     },
   },
   { timestamps: true }

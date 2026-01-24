@@ -25,8 +25,13 @@ const MyReports = () => {
     );
 
   return (
+
+     <div className="doctor-dashboard-page">
+      <div className="doctor-dashboard-card">
+      <h2 className="doctor-dashboard-title">Medical History</h2>
+       <hr className="dashboard-divider" />
     <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6">Medical History</h1>
+      
 
       {reports.length === 0 ? (
         <p className="text-gray-500">No reports found for your profile.</p>
@@ -79,6 +84,7 @@ const MyReports = () => {
         </div>
       )}
     </div>
+    </div></div>
   );
 };
 

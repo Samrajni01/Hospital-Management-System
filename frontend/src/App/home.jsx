@@ -44,7 +44,7 @@ export default function Home({ userId }) {
 
       {/* Button for bill (page not created yet) */}
       <button className="dashboard-btn full-width" onClick={() => navigate("/mybill")}>
-        My Bill
+        My Bills
       </button>
     </div>
     </div>

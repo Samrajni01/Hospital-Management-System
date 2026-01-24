@@ -76,13 +76,18 @@ const HaveBill = () => {
   if (error) return <div className="p-6 text-red-500">{error}</div>;
 
   return (
+     <div className="doctor-dashboard-page">
+      <div className="doctor-dashboard-card">
+        <h2 className="doctor-dashboard-title">My Bills</h2>
+       <hr className="dashboard-divider" />
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">My Bills</h1>
+      
 
       {bills.map((bill) => {
         const remainingAmount = bill.totalAmount - bill.paidAmount;
 
         return (
+            <div className="profile-card">
           <div key={bill._id} className="border rounded-lg p-4 mb-4 shadow">
             <p><b>Doctor:</b> {bill.doctor?.user?.fullName || "N/A"}</p>
             <p>
@@ -108,6 +113,7 @@ const HaveBill = () => {
             <p className={`font-semibold ${bill.status === "paid" ? "text-green-600" : "text-yellow-600"}`}>
               Status: {bill.status}
             </p>
+            </div>
 
             {/* Payment buttons */}
             {bill.status !== "paid" && remainingAmount > 0 && (
@@ -115,9 +121,9 @@ const HaveBill = () => {
                 <b>Pay via:</b>
                 <div className="flex gap-2 mt-2">
                   {paymentOptions.map((option) => (
-                    <button
+                    <button 
                       key={option.type}
-                      className={`px-4 py-1 rounded text-white ${
+                      className={`appointments-table button ${
                         option.type === "COD"
                           ? "bg-gray-500"
                           : option.type === "GPay"
@@ -133,8 +139,11 @@ const HaveBill = () => {
               </div>
             )}
           </div>
+          
         );
       })}
+    </div>
+    </div>
     </div>
   );
 };

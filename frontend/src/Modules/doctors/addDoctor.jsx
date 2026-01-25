@@ -29,11 +29,7 @@ export default function AddDoctor() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    alert(
-    "TYPES:\n" +
-    `experience: ${form.experience} (${typeof form.experience})\n` +
-    `availability length: ${form.availability.length}`
-  );
+   
 
 
 
@@ -60,7 +56,7 @@ navigate("/doctor/home", {
         </div>
 
     
-    <form className="auth-form" onSubmit={handleSubmit}>
+    <form className="auth-form" onSubmit={handleSubmit} noValidate>
       
 
       <input
@@ -81,6 +77,7 @@ navigate("/doctor/home", {
         name="experience"
         type="number"
         placeholder="Experience (years)"
+        value={form.experience}
         onChange=//{handleChange}
         {(e)=>setForm({...form,experience:Number(e.target.value)})}
       />

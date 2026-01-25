@@ -70,7 +70,8 @@ navigate("/doctor/home", {
         name="experience"
         type="number"
         placeholder="Experience (years)"
-        onChange={handleChange}
+        onChange=//{handleChange}
+        {(e)=>setForm({...form,experience:Number(e.target.value)})}
       />
 
       <div>
@@ -78,6 +79,7 @@ navigate("/doctor/home", {
           <label key={day}>
             <input
               type="checkbox"
+              checked={form.availability.includes(day)}
               onChange={() => handleCheckbox(day)}
             />
             {day}

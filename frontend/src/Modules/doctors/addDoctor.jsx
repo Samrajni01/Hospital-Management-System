@@ -28,14 +28,7 @@ export default function AddDoctor() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-   
-
-
-
-
-
-    try {
+ try {
       const res=await addDoctor(form);
       const doctorId = res.data.data._id;
 

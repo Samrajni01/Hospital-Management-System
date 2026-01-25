@@ -12,6 +12,7 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    localStorage.clear()
     try {
       const response = await loginUser(form);
       const { user,accessToken } = response.data.data;

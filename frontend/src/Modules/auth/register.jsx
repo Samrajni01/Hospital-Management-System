@@ -19,7 +19,7 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.clear()
+    
     try {
 
       

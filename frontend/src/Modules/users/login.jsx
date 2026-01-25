@@ -12,39 +12,40 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    localStorage.clear()
+    
+    // 1. Clear everything BEFORE the login attempt
+    localStorage.clear();
+
     try {
       const response = await loginUser(form);
-      const { user,accessToken } = response.data.data;
+      const { user, accessToken } = response.data.data;
 
       if (!user) throw new Error("User data missing");
+      
+      // 2. Save fresh token
       localStorage.setItem("accessToken", accessToken);
       alert("Login successful");
 
       if (user.role.toLowerCase() === "patient") {
         try {
-          // Fetch patient profile by userId
-         // const patientRes = 
-          await getPatientByIdApi();
-          //const patientId = patientRes.data.data._id;
-
-          // Navigate to patient dashboard (/home)
+          // Force a small delay or pass the token directly if your API supports it
+          await getPatientByIdApi(); 
           navigate("/home");
         } catch (err) {
-          console.error("Patient profile not found", err);
           navigate("/patient/add");
         }
       } else if (user.role.toLowerCase() === "doctor") {
         try {
-          //const doctorRes = 
-          await getDoctorById(); // backend uses logged-in user
-          //const doctorId = doctorRes.data.data._id;
-
-          // Navigate to doctor dashboard (/doctor/home)
+          // If this still fails, your backend is likely seeing the OLD 
+          // cookie instead of this NEW token.
+          await getDoctorById(); 
           navigate("/doctor/home");
         } catch (err) {
           console.error("Doctor profile not found", err);
           navigate("/doctor/apply");
+      
+      
+      // ... rest of logic
         }
       } else {
         navigate("/user-profile");

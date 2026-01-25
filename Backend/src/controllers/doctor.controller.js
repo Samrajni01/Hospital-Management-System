@@ -16,7 +16,7 @@ import { Doctor } from "../models/doctors.model.js";
     user:req.user._id, 
     specialization,
     registrationNumber,
-    experience,
+    experience:Number(experience),
     availability,
     isActive:true,
   });

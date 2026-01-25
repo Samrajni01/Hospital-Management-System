@@ -28,6 +28,17 @@ export default function AddDoctor() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    alert(
+    "TYPES:\n" +
+    `experience: ${form.experience} (${typeof form.experience})\n` +
+    `availability length: ${form.availability.length}`
+  );
+
+
+
+
+
     try {
       const res=await addDoctor(form);
       const doctorId = res.data.data._id;

@@ -56,7 +56,7 @@ navigate("/doctor/home", {
         </div>
 
     
-    <form className="auth-form" onSubmit={handleSubmit} noValidate>
+    <form className="auth-form" onSubmit={handleSubmit} >
       
 
       <input

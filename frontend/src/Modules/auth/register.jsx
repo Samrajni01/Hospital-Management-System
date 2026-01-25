@@ -50,7 +50,7 @@ export default function Register() {
         <input name="email" placeholder="Email" onChange={handleChange} />
         <input name="password" type="password" placeholder="Password" onChange={handleChange} />
         <input name="phoneNumber" placeholder="Phone Number" onChange={handleChange} />
-        <input name="role" placeholder="Role (admin/doctor/user/patient)" onChange={handleChange} />
+        <input name="role" placeholder="Role (admin/doctor/patient)" onChange={handleChange} />
 
         <button type="submit" className="auth-button">Register</button>
       </form>

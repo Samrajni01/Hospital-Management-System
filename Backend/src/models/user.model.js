@@ -30,7 +30,7 @@ const userSchema=new Schema(
             },
             role:{
                  type:String,
-                enum:["admin","doctor","patient","other"],
+                enum:["admin","doctor","patient"],
                 required:true,
                 default:"patient"
 
@@ -86,7 +86,7 @@ userSchema.methods.generateRefreshToken=function(){
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn:process.env.REFRESH_TOKEN_EXPIRY
+            expiresIn:process.env.REFRESH_TOKEN_EXPIRY 
         }
 
     )

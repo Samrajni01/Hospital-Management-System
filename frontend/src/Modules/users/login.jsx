@@ -17,12 +17,12 @@ export default function Login() {
 
     try {
       const response = await loginUser(form);
-      const { user /*accessToken*/ } = response.data.data;
+      const { user, accessToken } = response.data.data;
 
       if (!user) throw new Error("User data missing");
       
       // 2. Save fresh token
-     // localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("accessToken", accessToken);
       alert("Login successful");
       localStorage.setItem("userRole",user.role.toLowerCase())
 

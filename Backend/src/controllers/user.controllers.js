@@ -73,7 +73,8 @@ const registeredUser = asyncHandler(async (req , res)=>{
     //extra
  const option={
     httpOnly:true,
-    secure:true
+    secure:true,
+    sameSite:"none"
 }//*
 
      if(!createdUser){
@@ -125,7 +126,8 @@ const registeredUser = asyncHandler(async (req , res)=>{
     select("-password -refreshToken")
     const option={
     httpOnly:true,
-    secure:true
+    secure:true,
+    sameSite:"none"
 }
 return res.status(200).cookie("accessToken",accessToken,option).cookie("refreshToken",refreshToken,option).json(
     new ApiResponse(
@@ -159,6 +161,7 @@ const logoutUser=asyncHandler(async (req,res)=>{
     const options={
        httpOnly:true,
     secure:true,
+    sameSite:"none"
     }
 
     return res.status(200).clearCookie("accessToken",options).clearCookie("refreshToken",options).json(

@@ -5,10 +5,12 @@ const app=express();
 
 
 app.use(cors({
-    origin:process.env.CORS_ORIGIN
+    origin://process.env.CORS_ORIGIN
+    "https://hospital-management-system-three-delta.vercel.app"
     
     ,
-    credentials:true
+    credentials:true,
+    allowedHeaders:["Content-Type","Authorization","X-Requested-With","Accept"]
 }))
 
 app.use(cookieParser())

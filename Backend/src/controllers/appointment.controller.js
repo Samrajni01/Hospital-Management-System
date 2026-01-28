@@ -5,6 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Appointment } from "../models/appointment.model.js";
 import { Patient } from "../models/patient.model.js";
 import { Doctor } from "../models/doctors.model.js";
+import { Bill } from "../models/bill.model.js";
 export const addAppointment = asyncHandler(async (req, res) => {
   const { doctor, appointmentDate, appointmentTime, reason } = req.body;
 
@@ -24,6 +25,29 @@ export const addAppointment = asyncHandler(async (req, res) => {
     appointmentTime,
     reason,
   });
+  await Bill.create({
+    patient: patient._id,
+    appointment: appointment._id,
+    doctor, // already an ObjectId, no ._id needed
+    services: [
+      {
+        name: "Consultation Fee",
+        amount: 500,
+      },
+    ],
+    totalAmount: 500,
+    paidAmount: 0,
+    status: "pending",
+  });
+
+
+
+
+
+
+
+
+
   res.status(201).json(new ApiResponse(201, appointment, "Appointment scheduled"));
 });
 export const getAllAppointments = asyncHandler(async (req, res) => {

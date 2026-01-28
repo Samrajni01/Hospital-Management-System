@@ -31,8 +31,10 @@ export default function Register() {
         navigate("/doctor/apply");
       } else if (form.role.toLowerCase() === "patient") {
         navigate("/patient/add");
-      } else {
-        navigate("/user-profile");
+      } else if(form.role.toLowerCase() ==="admin"){
+        alert("You are not the admin")
+      }else{
+        alert("Invalid role! Please enter doctor or patient only")
       }
     } catch (err) {
       alert(err?.response?.data?.message || "Register failed");

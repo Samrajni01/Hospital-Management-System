@@ -10,7 +10,7 @@ import { Patient } from "../models/patient.model.js";
  */
 const createBill = asyncHandler(async (req, res) => {
   if (req.user.role !== "admin") {
-    throw new ApiError(403, "Only admin can create bill");
+    throw new ApiError(403, "Only admin can update bill");
   }
 
   const { patient, appointment, doctor, services } = req.body;
@@ -78,7 +78,7 @@ const getMyBills = asyncHandler(async (req, res) => {
     throw new ApiError(403, "Only patients can access this");
   }
 
-  // find patient profile linked to logged-in user
+  // get patient linked to logged-in user
   const patient = await Patient.findOne({ user: req.user._id });
 
   if (!patient) {
@@ -86,24 +86,22 @@ const getMyBills = asyncHandler(async (req, res) => {
   }
 
   const bills = await Bill.find({ patient: patient._id })
-   .populate({
-    path: "doctor",
-    populate: {
-      path: "user",
-      select: "fullName"
-    }
-  })
-  .populate("appointment");
+    .populate({
+      path: "doctor",
+      populate: {
+        path: "user",
+        select: "fullName",
+      },
+    })
+    .populate("appointment")
+    .sort({ createdAt: -1 });
 
-  // if no bills yet
-  if (!bills || bills.length === 0) {
-    throw new ApiError(404, "No bills found. Nothing to pay 🎉");
-  }
-
+  // ✅ ALWAYS return bills (even empty array)
   res.status(200).json(
     new ApiResponse(200, bills, "My bills fetched")
   );
 });
+
 /**
  * DELETE BILL (ADMIN ONLY)
  */
